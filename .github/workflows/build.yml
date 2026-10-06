@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout Repository
@@ -42,23 +42,29 @@ jobs:
             libtool \
             pkg-config \
             ccache \
-            lld
+            lld \
+            cmake
 
       - name: Install Python Dependencies
         run: |
-          python -m pip install --upgrade pip setuptools
+          python -m pip install --upgrade pip setuptools wheel
           python -m pip install "cython==0.29.37"
-          python -m pip install buildozer
+          python -m pip install "buildozer==1.5.0"
+          python -m pip install "python-for-android>=2024.1.21"
 
-      - name: Build APK with Auto-Accept Licenses
+      - name: Accept Android SDK Licenses
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+
+      - name: Build APK
         run: |
           unset ANDROID_NDK_HOME
           unset ANDROID_NDK_ROOT
           unset ANDROID_NDK
-          yes | buildozer android debug
+          buildozer -v android debug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-app-apk
+          name: bounce-it-out-apk
           path: bin/*.apk
