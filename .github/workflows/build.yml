@@ -45,11 +45,13 @@ jobs:
 
       - name: Install Python Dependencies
         run: |
-          python -m pip install --upgrade pip setuptools cython buildozer
+          python -m pip install --upgrade pip setuptools "cython<3.0.0" buildozer
 
       - name: Build APK with Auto-Accept Licenses
         run: |
-          # Команда yes | автоматически отвечает "y" (да) на все запросы лицензий Android SDK
+          unset ANDROID_NDK_HOME
+          unset ANDROID_NDK_ROOT
+          unset ANDROID_NDK
           yes | buildozer android debug
 
       - name: Upload APK Artifact
