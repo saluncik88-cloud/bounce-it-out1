@@ -1,44 +1,49 @@
 [app]
 
-# Название твоего приложения
+# (str) Title of your application
 title = Bounce It Out
 
-# Имя пакета (без пробелов)
+# (str) Package name
 package.name = bounceitout
 
-# Домен приложения
+# (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
 
-# Где лежит исходный код (. — текущая папка)
+# (str) Source code where the main.py live
 source.dir = .
 
-# Расширения файлов, которые нужно включить в APK
+# (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas,wav,mp3
 
-# Версия приложения
+# (str) Application versioning
 version = 0.1
 
-# Библиотеки, необходимые для работы
+# (list) Application requirements
+# comma separated e.g. requirements = sqlite3,kivy
 requirements = python3,kivy
 
-# Ориентация экрана
+# (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
 
-# Автоматически принимать лицензию Android SDK
+# (bool) Auto-accept SDK license
 android.accept_sdk_license = True
 
-# Настройки Android API
+# (int) Target Android API
 android.api = 33
+
+# (int) Minimum API required
 android.minapi = 21
 
-# Фиксируем стабильную версию NDK
+# (str) Android NDK version
 android.ndk = 25b
 
-# Собираем под 64-битные современные процессоры (устраняет ошибку)
+# (list) List of architectures to build for (ОСТАВЛЯЕМ ТОЛЬКО ARM64)
 android.archs = arm64-v8a
 
 [buildozer]
 
-# Уровень логов
+# (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
 log_level = 2
+
+# (int) Display warning if buildozer is run as root (0 = false, 1 = true)
 warn_on_root = 1
